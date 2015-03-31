@@ -1,0 +1,71 @@
+package elasticsearch;
+
+
+import org.json.JSONObject;
+
+/**
+ * @author dewadkar
+ * elasticsearch elasticsearch
+ * Mar 9, 2015 4:57:11 PM
+ * 
+ */
+public class ESQueryTemplate {
+
+    public static JSONObject getMatchAllQuery() {
+
+        final JSONObject matchAll = new JSONObject();
+        matchAll.put("match_all", new JSONObject());
+
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("query", matchAll);
+
+        return jsonObject;
+
+    }
+
+    /**JSONObject
+     * @param query
+     * @return
+     */
+    public static JSONObject getFieldSearchResponse(String query) {
+
+        final JSONObject field = new JSONObject();
+        field.put("question", query);
+
+        final JSONObject termJson = new JSONObject();
+        termJson.put("term", field);
+
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("query", termJson);
+
+        return jsonObject;
+    }
+}
+
+/*---------Direct search -----------
+ * {
+ * "query": {
+ * "filtered": {
+ * "query": {
+ * "query_string": {
+ * "query": "temporary"
+ * }
+ * }
+ * }
+ * }
+ * }
+ * -----------Filter search -----------------------
+ * {
+ * "query": {
+ * "filtered" : {
+ * "query" : {
+ * "query_string" : {
+ * "query" : "some query string here"
+ * }
+ * },
+ * "filter" : {
+ * "term" : { "user" : "kimchy" }
+ * }
+ * }
+ * }
+ * } */
